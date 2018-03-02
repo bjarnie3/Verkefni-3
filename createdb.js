@@ -6,7 +6,7 @@ const { Client } = require('pg');
 
 const connectionString = process.env.DATABASE_URL || 'postgres://postgres:bjarnie@localhost:5432/V3';
 
-const client = new pg.Client(connectionString);
+const client = new Client(connectionString);
 client.connect();
 
 const readFileAsync = util.promisify(fs.readFile);
