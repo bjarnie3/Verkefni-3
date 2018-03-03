@@ -1,8 +1,7 @@
 /* todo sækja pakka sem vantar  */
-const connectionString = process.env.DATABASE_URL || 'postgres://:@localhost/v3';
 
+const connectionString = process.env.DATABASE_URL;
 const { Client } = require('pg');
-
 /**
  * Create a note asynchronously.
  *
