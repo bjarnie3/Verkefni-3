@@ -1,13 +1,11 @@
 require('dotenv').config();
 
 const fs = require('fs');
-const util = require('util'); 
+const util = require('util');
+
 const { Client } = require('pg');
 
-const connectionString = process.env.DATABASE_URL || 'postgres://postgres:bjarnie@localhost:5432/V3';
-
-const client = new Client(connectionString);
-client.connect();
+const connectionString = process.env.DATABASE_URL;
 
 const readFileAsync = util.promisify(fs.readFile);
 
@@ -42,16 +40,3 @@ async function create() {
 create().catch((err) => {
   console.error('Error creating schema', err);
 });
-
-const connect = () => {
-  connectionString.connect((err) => {
-  if (!err) {
-    Client.query('Select * from notes', (err, result) => {
-      if(err){
-        console.log(result.rows);
-      }
-    });
-  }
-});
- 
-}
