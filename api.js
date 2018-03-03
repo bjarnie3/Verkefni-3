@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
   if (title.length === 0) {
     return res.status(400).json({
       field: 'title',
-      error: 'Titill má ekki vera tómur',
+      error: 'Titill má strengur af staf/stöfum/orðum á lengt 1 - 255',
     });
   }
 
@@ -99,10 +99,10 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (readOne(id)) {
-    await del(id);
-    return res.status(200).send('Tókst að eyða!');
+    const ans = await del(id);
+    return res.status(200).send(ans);
   }
-  return res.send('bla');
+  return res.send('note er ekki til');
 });
 
 module.exports = router;

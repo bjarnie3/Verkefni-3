@@ -1,7 +1,7 @@
 /* todo sækja pakka sem vantar  */
 const { Client } = require('pg');
 
-const connectionString = process.env.DATABASE_URL || 'postgres://:@localhost/notes';
+const connectionString = process.env.DATABASE_URL;
 /**
  * Create a note asynchronously.
  *
@@ -85,7 +85,7 @@ async function update(id, { title, text, datetime } = {}) {
   const client = new Client({ connectionString });
   await client.connect();
   try {
-    const values = [title, text, datetime];
+    const values = [title, text, datetime, id];
     await client.query('UPDATE notes SET title = $1, text = $2, datetime = $3 WHERE id =' + id, values);
     const item = await readOne(id);
     return item;
@@ -109,7 +109,7 @@ async function del(id) {
   await client.connect();
   try {
     await client.query('DELETE FROM notes WHERE id = ' + id);// eslint-disable-line
-    return 'jeeei';
+    return 'sussess';
   } catch (err) {
     console.error('Error deleting data');
     throw err;
